@@ -1,0 +1,61 @@
+<div class="row">
+
+
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+
+        <div class="form-group">
+            <label for="firstName">firstName</label>
+            <input
+                    type="text"
+                    id="firstName"
+                    ngModel
+                    name="firstName"
+                    required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">lastName</label>
+            <input
+                    type="text"
+                    id="lastName"
+                    ngModel
+                    name="lastName"
+                    required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input
+                    type="email"
+                    id="email"
+                    ngModel
+                    name="email"
+                    required
+                    email
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                    type="text"
+                    id="password"
+                    ngModel
+                    name="password"
+                    required
+                    minlength="6"
+            >
+        </div>
+
+        <div>
+            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">Sign up</button>
+        </div>
+
+
+        <div>
+            <a routerLink="../login">Switch to login</a>
+        </div>
+    </form>
+</div>
