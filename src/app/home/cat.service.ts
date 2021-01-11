@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Subscription} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class CatService {
