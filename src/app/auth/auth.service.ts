@@ -1,5 +1,12 @@
 import {Injectable} from "@angular/core";
 
+export interface UserInterface {
+    firstName?: string;
+    lastName?: string;
+    email: string;
+    password: string;
+}
+
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
