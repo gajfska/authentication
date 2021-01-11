@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-register',
@@ -10,7 +10,8 @@ import {Router} from "@angular/router";
 export class RegisterComponent {
 
     constructor( private authService: AuthService,
-                 private router: Router) {}
+                 private router: Router,
+                 private route: ActivatedRoute) {}
 
     onSubmit(form: NgForm) {
         if (!form.valid) {
@@ -21,7 +22,7 @@ export class RegisterComponent {
 
         this.authService.register(form.value);
         form.reset();
-        this.router.navigate(['auth/login']);
+        this.router.navigate(['../login'], { relativeTo: this.route.parent });
 
     }
 
