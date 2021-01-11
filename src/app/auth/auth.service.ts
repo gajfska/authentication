@@ -17,9 +17,10 @@ export class AuthService {
     constructor(private router: Router) {
     }
 
-
     db = null;
     currentUserName?: string;
+    loggedUser?: UserInterface;
+
 
 
     createDB() {
@@ -60,24 +61,18 @@ export class AuthService {
             });
     }
 
-    login(user: UserInterface) {
-
-        const tx = this.db.transaction(['personal_data'], 'readonly');
-        const pNotes = tx.objectStore('personal_data');
-        const request = pNotes.get(user.email);
-
-        request.onsuccess = event => {
-            if (md5(user.password) === request.result.password) {
-                console.log("success");
-                console.log(request.result.firstName);
-                this.currentUserName = request.result.firstName;
-                this.router.navigate(['home']);
-
-            } else {
-                console.log("wrong password should be " + request.result.password);
-            }
-        };
-
+    login(user: UserInterface): Promise<boolean> {
+        return this.doesUserExists(user)
+            .then(userExists => {
+                if (!userExists) {
+                    throw new LoginError(LoginErrorType.accountDoesntExist, null);
+                }
+                return true;
+            })
+            .then(() => {
+                const passwordHash = md5(user.password);
+                return this.verifyPassword(user.email, passwordHash);
+            });
     }
 
 
@@ -89,6 +84,25 @@ export class AuthService {
         return new Promise((resolve) => {
             request.onsuccess = () => {
                 resolve(request.result !== undefined);
+            };
+        });
+    }
+
+
+    verifyPassword(email: string, passwordHash: string): Promise<boolean> {
+        const tx = this.db.transaction(['personal_data'], 'readonly');
+        const pNotes = tx.objectStore('personal_data');
+        // const request = pNotes.get(user.email);
+        const request = pNotes.get(email);
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = event => {
+                if (passwordHash === request.result.password) {
+                    this.loggedUser = request.result;
+                    resolve(request.result);
+                } else {
+                    reject(new LoginError(LoginErrorType.wrongPassword, null));
+                }
             };
         });
     }
