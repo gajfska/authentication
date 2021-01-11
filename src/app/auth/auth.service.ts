@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import md5 from 'md5';
+import {LoginError, LoginErrorType} from "./login-error";
 
 
 export interface UserInterface {
@@ -36,10 +37,27 @@ export class AuthService {
         };
     }
 
-    register(user: UserInterface) {
-        const tx = this.db.transaction(['personal_data'], 'readwrite');
-        const pNotes = tx.objectStore('personal_data');
-        pNotes.add(user);
+    // register(user: UserInterface) {
+    //     const tx = this.db.transaction(['personal_data'], 'readwrite');
+    //     const pNotes = tx.objectStore('personal_data');
+    //     pNotes.add(user);
+    // }
+
+
+    register(user: UserInterface): Promise<boolean> {
+        return this.doesUserExists(user)
+            .then(userExists => {
+                if (userExists) {
+                    throw new LoginError(LoginErrorType.accountAlreadyExists, null);
+                }
+                return true;
+            })
+            .then(() => {
+                const tx = this.db.transaction(['personal_data'], 'readwrite');
+                const pNotes = tx.objectStore('personal_data');
+                pNotes.add(user);
+                return true;
+            });
     }
 
     login(user: UserInterface) {
@@ -60,6 +78,19 @@ export class AuthService {
             }
         };
 
+    }
+
+
+    doesUserExists(user: UserInterface): Promise<boolean> {
+        const tx = this.db.transaction(['personal_data'], 'readonly');
+        const pNotes = tx.objectStore('personal_data');
+        const request = pNotes.get(user.email);
+
+        return new Promise((resolve) => {
+            request.onsuccess = () => {
+                resolve(request.result !== undefined);
+            };
+        });
     }
 }
 

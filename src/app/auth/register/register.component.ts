@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {AuthService, UserInterface} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import md5 from 'md5';
+import {LoginError, LoginErrorType} from "../login-error";
 
 
 @Component({
@@ -21,9 +22,21 @@ export class RegisterComponent {
         }
         let user: UserInterface = form.value;
         user.password = md5(user.password);
-        this.authService.register(form.value);
-        form.reset();
-        this.router.navigate(['auth/login']);
+        this.authService.register(form.value)
+            .then(() => {
+            form.reset();
+            this.router.navigate(['auth/login']);
+        })
+            .catch((err: LoginError) => {
+                switch (err.errorType) {
+                    case LoginErrorType.accountAlreadyExists:
+                        alert('Account already exists!');
+                        break;
+                    default:
+                        alert('Something went wrong :(');
+                        break;
+                }
+            });
 
     }
 
