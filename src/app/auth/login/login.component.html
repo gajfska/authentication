@@ -1,34 +1,39 @@
-<div class="row">
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+<div class="card">
+    <h4 class="card-header">Login</h4>
+    <div class="card-body">
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
 
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <input
-                    type="email"
-                    id="email"
-                    ngModel
-                    name="email"
-                    required
-                    email
-            >
-        </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input
+                        type="email"
+                        id="email"
+                        ngModel
+                        name="email"
+                        required
+                        email
+                        class="form-control"
+                >
+            </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input
-                    type="text"
-                    id="password"
-                    ngModel
-                    name="password"
-                    required
-                    minlength="6"
-            >
-        </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                        type="text"
+                        id="password"
+                        ngModel
+                        name="password"
+                        required
+                        minlength="6"
+                        class="form-control"
+                >
+            </div>
 
 
-        <div>
-            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid"> Login </button>
-            <a routerLink="../register">Switch to register</a>
-        </div>
-    </form>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid"> Login </button>
+                <a routerLink="../register" class="btn btn-link">Switch to register</a>
+            </div>
+        </form>
+    </div>
 </div>
