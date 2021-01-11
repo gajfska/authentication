@@ -27,6 +27,12 @@ export class AuthService {
         };
     }
 
+    register(user: UserInterface) {
+        const tx = this.db.transaction(['personal_data'], 'readwrite');
+        const pNotes = tx.objectStore('personal_data');
+        pNotes.add(user);
+    }
+
 }
 
 
