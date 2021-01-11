@@ -6,12 +6,12 @@ import {CatService} from "./cat.service";
     selector: 'app-home',
     templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
 
     firstName: string;
 
     constructor(private authService: AuthService,
-                public catService: CatService){
+                public catService: CatService) {
         this.firstName = authService.loggedUser.firstName;
     }
 
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit{
 
     }
 
-    refreshCat(){
+    refreshCat() {
         this.catService.getData();
     }
 

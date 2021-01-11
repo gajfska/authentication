@@ -22,7 +22,7 @@ export class AuthService {
         this.createDatabase();
     }
 
-    createDatabase() {
+    private createDatabase(): void {
         const request = indexedDB.open(this.databaseName);
         request.onupgradeneeded = () => {
             this.db = request.result;
@@ -65,7 +65,7 @@ export class AuthService {
     }
 
 
-    doesUserExists(user: UserInterface): Promise<boolean> {
+    private doesUserExists(user: UserInterface): Promise<boolean> {
         const tx = this.db.transaction([this.collectionName], 'readonly');
         const pNotes = tx.objectStore(this.collectionName);
         const request = pNotes.get(user.email);
@@ -78,7 +78,7 @@ export class AuthService {
     }
 
 
-    verifyPassword(email: string, passwordHash: string): Promise<boolean> {
+    private verifyPassword(email: string, passwordHash: string): Promise<boolean> {
         const tx = this.db.transaction([this.collectionName], 'readonly');
         const pNotes = tx.objectStore(this.collectionName);
         const request = pNotes.get(email);

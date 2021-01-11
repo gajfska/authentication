@@ -13,8 +13,9 @@ export class LoginComponent {
     alertWrongPassword = false;
     alertAccountDoesntExist = false;
 
-    constructor( private authService: AuthService,
-                 private router: Router) {}
+    constructor(private authService: AuthService,
+                private router: Router) {
+    }
 
     onSubmit(form: NgForm) {
         if (!form.valid) {
@@ -28,11 +29,9 @@ export class LoginComponent {
                 switch (err.errorType) {
                     case LoginErrorType.wrongPassword:
                         this.alertWrongPassword = true;
-                        // alert('Wrong password!');
                         break;
                     case LoginErrorType.accountDoesntExist:
                         this.alertAccountDoesntExist = true;
-                        // alert('Account for this email address does not exist :( ');
                         break;
                     default:
                         alert('Something went wrong :(');

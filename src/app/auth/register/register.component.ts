@@ -14,8 +14,9 @@ export class RegisterComponent {
 
     alertAccountAlreadyExists = false;
 
-    constructor( private authService: AuthService,
-                 private router: Router) {}
+    constructor(private authService: AuthService,
+                private router: Router) {
+    }
 
     onSubmit(form: NgForm) {
         if (!form.valid) {
@@ -25,14 +26,13 @@ export class RegisterComponent {
         user.password = md5(user.password);
         this.authService.register(form.value)
             .then(() => {
-            form.reset();
-            this.router.navigate(['login']);
-        })
+                form.reset();
+                this.router.navigate(['login']);
+            })
             .catch((err: LoginError) => {
                 switch (err.errorType) {
                     case LoginErrorType.accountAlreadyExists:
                         this.alertAccountAlreadyExists = true;
-                        // alert('Account already exists!');
                         break;
                     default:
                         alert('Something went wrong :(');
