@@ -17,11 +17,9 @@ export class LoginComponent {
         if (!form.valid) {
             return;
         }
-
-        console.log(form.value);
         this.authService.login(form.value).then(() => {
             form.reset();
-            this.router.navigate(['welcome']);
+            this.router.navigate(['home']);
         })
             .catch((err: LoginError) => {
                 switch (err.errorType) {

@@ -10,7 +10,7 @@ export class HomeComponent {
     firstName: string;
 
     constructor(private authService: AuthService){
-        this.firstName = authService.currentUserName;
+        this.firstName = authService.loggedUser.firstName;
     }
 
 }

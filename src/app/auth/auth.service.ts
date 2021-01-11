@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Router} from "@angular/router";
 import md5 from 'md5';
 import {LoginError, LoginErrorType} from "./login-error";
 
@@ -14,11 +13,7 @@ export interface UserInterface {
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    constructor(private router: Router) {
-    }
-
     db = null;
-    currentUserName?: string;
     loggedUser?: UserInterface;
 
 
@@ -37,12 +32,6 @@ export class AuthService {
             alert('sucess');
         };
     }
-
-    // register(user: UserInterface) {
-    //     const tx = this.db.transaction(['personal_data'], 'readwrite');
-    //     const pNotes = tx.objectStore('personal_data');
-    //     pNotes.add(user);
-    // }
 
 
     register(user: UserInterface): Promise<boolean> {
@@ -92,7 +81,6 @@ export class AuthService {
     verifyPassword(email: string, passwordHash: string): Promise<boolean> {
         const tx = this.db.transaction(['personal_data'], 'readonly');
         const pNotes = tx.objectStore('personal_data');
-        // const request = pNotes.get(user.email);
         const request = pNotes.get(email);
 
         return new Promise((resolve, reject) => {
