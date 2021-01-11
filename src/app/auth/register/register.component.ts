@@ -1,7 +1,9 @@
 import {Component} from "@angular/core";
 import {NgForm} from "@angular/forms";
-import {AuthService} from "../auth.service";
+import {AuthService, UserInterface} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import md5 from 'md5';
+
 
 @Component({
     selector: 'app-register',
@@ -17,12 +19,11 @@ export class RegisterComponent {
         if (!form.valid) {
             return;
         }
-
-        console.log(form.value);
-
+        let user: UserInterface = form.value;
+        user.password = md5(user.password);
         this.authService.register(form.value);
         form.reset();
-        this.router.navigate(['../login'], { relativeTo: this.route.parent });
+        this.router.navigate(['auth/login']);
 
     }
 

@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
+import md5 from 'md5';
+
 
 export interface UserInterface {
     firstName?: string;
@@ -47,7 +49,7 @@ export class AuthService {
         const request = pNotes.get(user.email);
 
         request.onsuccess = event => {
-            if (user.password === request.result.password) {
+            if (md5(user.password) === request.result.password) {
                 console.log("success");
                 console.log(request.result.firstName);
                 this.currentUserName = request.result.firstName;
