@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-register',
@@ -8,18 +9,20 @@ import {AuthService} from "../auth.service";
 })
 export class RegisterComponent {
 
-    constructor( private authService: AuthService) {}
+    constructor( private authService: AuthService,
+                 private router: Router) {}
 
     onSubmit(form: NgForm) {
         if (!form.valid) {
             return;
         }
 
-        this.authService.register(form.value);
-
         console.log(form.value);
 
+        this.authService.register(form.value);
         form.reset();
+        this.router.navigate(['auth/login']);
+
     }
 
 }
