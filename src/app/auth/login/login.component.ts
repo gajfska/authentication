@@ -38,9 +38,6 @@ export class LoginComponent {
                         break;
                 }
             });
-
-        this.alertWrongPassword = false;
-        this.alertAccountDoesntExist = false;
     }
 
 }
