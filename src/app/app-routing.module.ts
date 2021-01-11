@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {AuthComponent} from "./auth/auth.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {LoginComponent} from "./auth/login/login.component";
+import {HomeComponent} from "./home/home.component";
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/auth/register', pathMatch: 'full' },
@@ -10,6 +11,7 @@ const appRoutes: Routes = [
             { path: 'register', component: RegisterComponent},
             { path: 'login', component: LoginComponent}
         ]},
+    {path: 'home', component: HomeComponent}
 ];
 
 @NgModule({

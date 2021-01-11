@@ -7,13 +7,15 @@ import {FormsModule} from "@angular/forms";
 import {RegisterComponent} from "./auth/register/register.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {AppRoutingModule} from "./app-routing.module";
+import {HomeComponent} from "./home/home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
       AuthComponent,
       RegisterComponent,
-      LoginComponent
+      LoginComponent,
+      HomeComponent
   ],
   imports: [
     BrowserModule,

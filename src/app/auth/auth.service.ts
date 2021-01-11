@@ -16,6 +16,8 @@ export class AuthService {
 
 
     db = null;
+    currentUserName?: string;
+
 
     createDB() {
         const request = indexedDB.open('accounts');
@@ -47,6 +49,10 @@ export class AuthService {
         request.onsuccess = event => {
             if (user.password === request.result.password) {
                 console.log("success");
+                console.log(request.result.firstName);
+                this.currentUserName = request.result.firstName;
+                this.router.navigate(['home']);
+
             } else {
                 console.log("wrong password should be " + request.result.password);
             }
