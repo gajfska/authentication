@@ -1,9 +1,10 @@
 import {Component} from "@angular/core";
 import {NgForm} from "@angular/forms";
-import {AuthService, UserInterface} from "../auth.service";
+import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 import md5 from 'md5';
 import {LoginError, LoginErrorType} from "../login-error";
+import {User} from "../user.model";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class RegisterComponent {
         if (!form.valid) {
             return;
         }
-        let user: UserInterface = form.value;
+        let user: User = form.value;
         user.password = md5(user.password);
         this.authService.register(form.value)
             .then(() => {
