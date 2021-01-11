@@ -10,6 +10,9 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
 
+    alertWrongPassword = false;
+    alertAccountdoesntexist = false;
+
     constructor( private authService: AuthService,
                  private router: Router) {}
 
@@ -24,16 +27,21 @@ export class LoginComponent {
             .catch((err: LoginError) => {
                 switch (err.errorType) {
                     case LoginErrorType.wrongPassword:
-                        alert('Wrong password!');
+                        this.alertWrongPassword = true;
+                        // alert('Wrong password!');
                         break;
                     case LoginErrorType.accountDoesntExist:
-                        alert('Account for this email address does not exist :( ');
+                        this.alertAccountdoesntexist = true;
+                        // alert('Account for this email address does not exist :( ');
                         break;
                     default:
                         alert('Something went wrong :(');
                         break;
                 }
             });
+
+        this.alertWrongPassword = false;
+        this.alertAccountdoesntexist = false;
     }
 
 }

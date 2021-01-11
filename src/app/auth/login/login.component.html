@@ -1,3 +1,16 @@
+<div *ngIf="alertWrongPassword">
+    <div class="alert alert-danger" role="alert">
+        Wrong password!
+    </div>
+</div>
+
+<div *ngIf="alertAccountdoesntexist">
+    <div class="alert alert-danger" role="alert">
+        Account for this email address does not exist!
+    </div>
+</div>
+
+
 <div class="card">
     <h4 class="card-header">Login</h4>
     <div class="card-body">
