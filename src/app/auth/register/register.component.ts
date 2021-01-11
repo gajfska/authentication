@@ -25,7 +25,7 @@ export class RegisterComponent {
         this.authService.register(form.value)
             .then(() => {
             form.reset();
-            this.router.navigate(['auth/login']);
+            this.router.navigate(['login']);
         })
             .catch((err: LoginError) => {
                 switch (err.errorType) {
