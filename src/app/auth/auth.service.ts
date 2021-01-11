@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 
 export interface UserInterface {
     firstName?: string;
@@ -9,6 +10,10 @@ export interface UserInterface {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
+    constructor(private router: Router) {
+    }
+
 
     db = null;
 
@@ -33,6 +38,21 @@ export class AuthService {
         pNotes.add(user);
     }
 
+    login(user: UserInterface) {
+
+        const tx = this.db.transaction(['personal_data'], 'readonly');
+        const pNotes = tx.objectStore('personal_data');
+        const request = pNotes.get(user.email);
+
+        request.onsuccess = event => {
+            if (user.password === request.result.password) {
+                console.log("success");
+            } else {
+                console.log("wrong password should be " + request.result.password);
+            }
+        };
+
+    }
 }
 
 
