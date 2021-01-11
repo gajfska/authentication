@@ -16,20 +16,18 @@ export class AuthService {
     db = null;
     loggedUser?: UserInterface;
 
+    constructor() {
+        this.createDatabase();
+    }
 
-
-    createDB() {
+    createDatabase() {
         const request = indexedDB.open('accounts');
-
-        request.onupgradeneeded = event => {
+        request.onupgradeneeded = () => {
             this.db = request.result;
-            const pNotes = this.db.createObjectStore('personal_data', {keyPath: 'email'});
-            alert('Upgrate');
+            this.db.createObjectStore('personal_data', {keyPath: 'email'});
         };
-
-        request.onsuccess = event => {
+        request.onsuccess = () => {
             this.db = request.result;
-            alert('sucess');
         };
     }
 

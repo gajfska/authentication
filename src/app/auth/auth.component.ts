@@ -6,12 +6,6 @@ import {AuthService} from "./auth.service";
     templateUrl: './auth.component.html'
 })
 
-export class AuthComponent implements OnInit {
-
-    constructor(private authService: AuthService) {}
-
-    ngOnInit() {
-        this.authService.createDB();
-    }
+export class AuthComponent {
 
 }
