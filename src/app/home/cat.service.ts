@@ -22,7 +22,7 @@ export class CatService {
         headers: new HttpHeaders(this.headerDict),
     };
 
-    getData() {
+    getData(): Subscription {
         return this.http.get(this.selectedAPI, this.requestOptions)
             .subscribe(
                 data => {
