@@ -12,6 +12,8 @@ import {LoginError, LoginErrorType} from "../login-error";
 })
 export class RegisterComponent {
 
+    alertAccountAlreadyExists = false;
+
     constructor( private authService: AuthService,
                  private router: Router) {}
 
@@ -29,13 +31,16 @@ export class RegisterComponent {
             .catch((err: LoginError) => {
                 switch (err.errorType) {
                     case LoginErrorType.accountAlreadyExists:
-                        alert('Account already exists!');
+                        this.alertAccountAlreadyExists = true;
+                        // alert('Account already exists!');
                         break;
                     default:
                         alert('Something went wrong :(');
                         break;
                 }
             });
+
+        this.alertAccountAlreadyExists = false;
 
     }
 

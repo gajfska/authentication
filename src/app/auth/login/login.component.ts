@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
 
     alertWrongPassword = false;
-    alertAccountdoesntexist = false;
+    alertAccountDoesntExist = false;
 
     constructor( private authService: AuthService,
                  private router: Router) {}
@@ -31,7 +31,7 @@ export class LoginComponent {
                         // alert('Wrong password!');
                         break;
                     case LoginErrorType.accountDoesntExist:
-                        this.alertAccountdoesntexist = true;
+                        this.alertAccountDoesntExist = true;
                         // alert('Account for this email address does not exist :( ');
                         break;
                     default:
@@ -41,7 +41,7 @@ export class LoginComponent {
             });
 
         this.alertWrongPassword = false;
-        this.alertAccountdoesntexist = false;
+        this.alertAccountDoesntExist = false;
     }
 
 }
