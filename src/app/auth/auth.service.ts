@@ -15,16 +15,18 @@ export class AuthService {
 
     db = null;
     loggedUser?: UserInterface;
+    private databaseName = 'accounts';
+    private collectionName = 'personal_data';
 
     constructor() {
         this.createDatabase();
     }
 
     createDatabase() {
-        const request = indexedDB.open('accounts');
+        const request = indexedDB.open(this.databaseName);
         request.onupgradeneeded = () => {
             this.db = request.result;
-            this.db.createObjectStore('personal_data', {keyPath: 'email'});
+            this.db.createObjectStore(this.collectionName, {keyPath: 'email'});
         };
         request.onsuccess = () => {
             this.db = request.result;
@@ -41,8 +43,8 @@ export class AuthService {
                 return true;
             })
             .then(() => {
-                const tx = this.db.transaction(['personal_data'], 'readwrite');
-                const pNotes = tx.objectStore('personal_data');
+                const tx = this.db.transaction([this.collectionName], 'readwrite');
+                const pNotes = tx.objectStore(this.collectionName);
                 pNotes.add(user);
                 return true;
             });
@@ -64,8 +66,8 @@ export class AuthService {
 
 
     doesUserExists(user: UserInterface): Promise<boolean> {
-        const tx = this.db.transaction(['personal_data'], 'readonly');
-        const pNotes = tx.objectStore('personal_data');
+        const tx = this.db.transaction([this.collectionName], 'readonly');
+        const pNotes = tx.objectStore(this.collectionName);
         const request = pNotes.get(user.email);
 
         return new Promise((resolve) => {
@@ -77,8 +79,8 @@ export class AuthService {
 
 
     verifyPassword(email: string, passwordHash: string): Promise<boolean> {
-        const tx = this.db.transaction(['personal_data'], 'readonly');
-        const pNotes = tx.objectStore('personal_data');
+        const tx = this.db.transaction([this.collectionName], 'readonly');
+        const pNotes = tx.objectStore(this.collectionName);
         const request = pNotes.get(email);
 
         return new Promise((resolve, reject) => {
