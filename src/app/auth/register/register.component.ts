@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {AuthService, UserInterface} from "../auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import md5 from 'md5';
 import {LoginError, LoginErrorType} from "../login-error";
 
@@ -13,8 +13,7 @@ import {LoginError, LoginErrorType} from "../login-error";
 export class RegisterComponent {
 
     constructor( private authService: AuthService,
-                 private router: Router,
-                 private route: ActivatedRoute) {}
+                 private router: Router) {}
 
     onSubmit(form: NgForm) {
         if (!form.valid) {

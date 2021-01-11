@@ -6,10 +6,6 @@ import {HomeComponent} from "./home/home.component";
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/register', pathMatch: 'full' },
-    // {path: 'auth', component: AuthComponent, children: [
-    //         { path: 'register', component: RegisterComponent},
-    //         { path: 'login', component: LoginComponent}
-    //     ]},
     {path: 'register', component: RegisterComponent},
     {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent}
